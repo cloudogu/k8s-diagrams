@@ -1,0 +1,151 @@
+@startuml
+!define CLOUDOGUURL https://raw.githubusercontent.com/cloudogu/plantuml-cloudogu-sprites/master
+!includeurl CLOUDOGUURL/dogus/cloudogu.puml  
+
+title <color:#23a3dd><$cloudogu></color> Debugging PodSecurityPolicies <color:#23a3dd><$cloudogu></color>\n
+
+note 
+Before starting: Check if common pitfalls are avoided:
+
+* admission controller active
+* PSP, (Cluster-)Role & (Cluster-)RoleBinding applied
+* Pods started //after// enabling admission controller, applying PSP, (Cluster-)Role & (Cluster-)RoleBinding
+* correct apiGroup for (Cluster-)Role, depending on k8s version
+** < 1.16:  ""apiGroups: [extensions]""
+** >= 1.16: ""apiGroups: [policy]""
+end note
+
+start
+
+#000000:""$ kubectl get pod"";
+
+if (Is the pod there?) then (yes)
+  'if (Is pod started?) then (yes)
+  '  : <size:40>👍</size> ;
+  '  stop
+  'else (no)
+    #000000:""$ kubectl get pod <pod> \ "" \n ""  -o jsonpath='{.metadata.annotations.kubernetes\.io/psp}'"";
+    if (Expected PSP?) then (yes)
+      if (Pod Status ""CrashLoopBackOff"" ?) then (yes)
+        #000000:""$ kubectl logs <pod>"";
+        :Error could be due to be missing capability or not running as root. 
+        Evaluate logs and...;
+      else (no)
+        if (Pod Status ""CreateContainerConfigError"" ?) then (yes)
+          #000000:""$ kubectl describe <pod>"";
+          :Error could be due to Rule ""runAsNonRoot"" and running as root.
+          Evaluate warnings in events and ...;
+        else (no)
+          ': Shrug 🤷 <U+1F937>
+          ': <size:40> 🤷 </size>;
+          ': <size:40>👍</size> ;
+           : There should be no problem ;
+          stop
+        endif
+      endif
+    :...fix security settings via 
+    * ""securityContext"" (set UID, add/drop capabilities, etc.)
+    * ""volumeMounts"" (when using read-only filesystem) 
+    * container image, e.g. via 
+    ** ""USER"" instruction in ""Dockerfile"" or
+    ** adapting image so it does not need capabilities or 
+          has proper file permissions
+    * adapting PSP/using less restrictive PSP (last resort) <color:#23a3dd>; 
+    else (no)
+      #000000:""$ kubectl get pod <pod> \ "" \n ""  -o jsonpath='{.spec.serviceAccountName}'"";
+      if (Expected ServiceAccount?) then (yes)
+        #000000:""$ kubectl auth can-i use <psp> \ "" \n ""  --as=system:serviceaccount:<namespace>:<serviceAccount>"";
+        if (Can use?) then (yes)
+          :ServiceAccount seems to be authorized for other PSPs. 
+          Read [[https://v1-17.docs.kubernetes.io/docs/concepts/policy/pod-security-policy/#policy-order| docs on policy order]] to find a solution.;
+          stop
+        else (no)
+          :Check (Cluster-)Role/(Cluster-)RoleBinding:
+          * Typos
+          * Role ➡ ️RoleBinding
+          * ServiceAccount
+          * Namespace
+          * wrong apiGroup for k8s version
+          
+          Hints: 
+          * Query all roles of ServiceAccount ([[https://github.com/FairwindsOps/rbac-lookup| kubectl plugin]])
+            ""kubectl rbac-lookup <serviceAccount>""
+          * Show who is authorized for psp ([[https://github.com/aquasecurity/kubectl-who-can| kubectl plugin]])
+            ""kubectl who-can use psp <psp>"";
+          stop
+        endif
+      else (no)
+        :Set ServiceAccount in Pod;
+        stop
+      endif
+    endif
+  'endif
+else (no)
+  if (Is Deployment?) then (yes)
+    #000000:""$ kubectl describe replicaset | grep <deployment>"";
+  else (no)
+    #000000:""$ kubectl describe <sts|ds|cron|job>"";
+  endif
+  : Evaluate warnings in events;
+   if (Service Account not authorized for any PSP?) then (yes)
+     :Authorize ServiceAccount of Pods to use PSP via RBAC;
+     stop
+   else (no)
+     :Error could be due to settings in SecurityContext that violate PSP, e.g. 
+     * user or group ID that is not in range of PSP. 
+     * explicitly added capability not allowed by PSP.
+     
+     Fix by 
+     * getting rid of securityContext setting 
+     * using other (trusted) image 
+     * adapting PSP/using less restrictive PSP (last resort) ;
+    '  stop
+   endif
+endif
+
+stop
+
+floating note
+Hint for testing if settings are effective:
+* Query capabilities of container:
+  ""capsh --decode="$(kubectl exec <pod> cat /proc/1/status | grep CapBnd| cut -d':' -f2)"""
+* Check if seccomp active ("2" means active)
+  ""kubectl exec <pod> cat /proc/1/status | grep Seccomp""
+* Check if privilege escalation is possible
+  ""kubectl exec <pod> cat /proc/1/status | grep NoNewPrivs""
+* Simple test for read-only filesystem (expected result - ""touch: cannot touch 'a': Read-only file system"") 
+  ""kubectl exec <pod>  touch a""
+* Query user and group of container:
+  ""kubectl exec <pod> id""
+end note
+
+legend
+<color:#23a3dd><$cloudogu></color> [[https://cloudogu.com| cloudogu.com]]
+end legend
+ 
+skinparam arrow {
+  Color #23a3dd
+}
+
+skinparam ActivityDiamond {
+  BackgroundColor #FFFFFF
+  BorderColor #16688d
+  FontColor #23a3dd
+}
+
+skinparam Activity {
+  BackgroundColor #23a3dd
+  BorderColor #16688d
+  FontColor #FFFFFF
+}
+skinparam title {
+  FontSize 75
+}
+skinparam note {
+  BorderColor #16688d
+  BackgroundColor #FFFFFF
+}
+skinparam legend {
+  BackgroundColor #FFFFF
+}
+@enduml
