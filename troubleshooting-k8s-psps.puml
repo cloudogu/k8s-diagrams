@@ -2,14 +2,14 @@
 !define CLOUDOGUURL https://raw.githubusercontent.com/cloudogu/plantuml-cloudogu-sprites/master
 !includeurl CLOUDOGUURL/dogus/cloudogu.puml  
 
-title <color:#23a3dd><$cloudogu></color> Debugging PodSecurityPolicies <color:#23a3dd><$cloudogu></color>\n
+title <color:#23a3dd><$cloudogu></color> Troubleshooting Kubernetes PodSecurityPolicies <color:#23a3dd><$cloudogu></color>\n
 
 note 
 Before starting: Check if common pitfalls are avoided:
 
 * admission controller active
-* PSP, (Cluster-)Role & (Cluster-)RoleBinding applied
-* Pods started //after// enabling admission controller, applying PSP, (Cluster-)Role & (Cluster-)RoleBinding
+* PSP, (Cluster-)Role and (Cluster-)RoleBinding applied
+* Pods started //after// enabling admission controller, applying PSP, (Cluster-)Role and (Cluster-)RoleBinding
 * correct apiGroup for (Cluster-)Role, depending on k8s version
 ** < 1.16:  ""apiGroups: [extensions]""
 ** >= 1.16: ""apiGroups: [policy]""
@@ -57,7 +57,7 @@ if (Is the pod there?) then (yes)
         #000000:""$ kubectl auth can-i use <psp> \ "" \n ""  --as=system:serviceaccount:<namespace>:<serviceAccount>"";
         if (Can use?) then (yes)
           :ServiceAccount seems to be authorized for other PSPs. 
-          Read [[https://v1-17.docs.kubernetes.io/docs/concepts/policy/pod-security-policy/#policy-order| docs on policy order]] to find a solution.;
+          Read [[https://v1-18.docs.kubernetes.io/docs/concepts/policy/pod-security-policy/#policy-order docs on policy order]] to find a solution.;
           stop
         else (no)
           :Check (Cluster-)Role/(Cluster-)RoleBinding:
@@ -68,9 +68,9 @@ if (Is the pod there?) then (yes)
           * wrong apiGroup for k8s version
           
           Hints: 
-          * Query all roles of ServiceAccount ([[https://github.com/FairwindsOps/rbac-lookup| kubectl plugin]])
+          * Query all roles of ServiceAccount ([[https://github.com/FairwindsOps/rbac-lookup kubectl plugin]])
             ""kubectl rbac-lookup <serviceAccount>""
-          * Show who is authorized for psp ([[https://github.com/aquasecurity/kubectl-who-can| kubectl plugin]])
+          * Show who is authorized for psp ([[https://github.com/aquasecurity/kubectl-who-can kubectl plugin]])
             ""kubectl who-can use psp <psp>"";
           stop
         endif
@@ -81,7 +81,7 @@ if (Is the pod there?) then (yes)
     endif
   'endif
 else (no)
-  if (Is Deployment?) then (yes)
+  if (Pod managed by Deployment?) then (yes)
     #000000:""$ kubectl describe replicaset | grep <deployment>"";
   else (no)
     #000000:""$ kubectl describe <sts|ds|cron|job>"";
@@ -120,7 +120,7 @@ Hint for testing if settings are effective:
 end note
 
 legend
-<color:#23a3dd><$cloudogu></color> [[https://cloudogu.com| cloudogu.com]]
+<color:#23a3dd><$cloudogu></color> [[https://cloudogu.com cloudogu.com]]
 end legend
  
 skinparam arrow {

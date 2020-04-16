@@ -1,4 +1,4 @@
-troubleshooting-k8s-psp
+Troubleshooting Kubernetes PodSecurityPolicies
 ===
 
 A diagram to help debugging Kubernetes PodSecurityPolicies.
