@@ -1,8 +1,9 @@
 @startuml
 !define CLOUDOGUURL https://raw.githubusercontent.com/cloudogu/plantuml-cloudogu-sprites/master
 !includeurl CLOUDOGUURL/dogus/cloudogu.puml  
+!includeurl CLOUDOGUURL/tools/k8s.puml
 
-title <color:#23a3dd><$cloudogu></color> Troubleshooting Kubernetes PodSecurityPolicies <color:#23a3dd><$cloudogu></color>\n
+title <color:blue><$k8s></color> Troubleshooting Kubernetes PodSecurityPolicies <color:blue><$k8s></color>\n
 
 note 
 Before starting: Check if common pitfalls are avoided:
@@ -51,6 +52,7 @@ if (Is the pod there?) then (yes)
     ** adapting image so it does not need capabilities or 
           has proper file permissions
     * adapting PSP/using less restrictive PSP (last resort) <color:#23a3dd>; 
+    stop
     else (no)
       #000000:""$ kubectl get pod <pod> \ "" \n ""  -o jsonpath='{.spec.serviceAccountName}'"";
       if (Expected ServiceAccount?) then (yes)
@@ -99,30 +101,26 @@ else (no)
      * getting rid of securityContext setting 
      * using other (trusted) image 
      * adapting PSP/using less restrictive PSP (last resort) ;
-    '  stop
+     stop
    endif
 endif
 
-stop
-
-floating note
-Hint for testing if settings are effective:
-* Query capabilities of container:
-  ""capsh --decode="$(kubectl exec <pod> cat /proc/1/status | grep CapBnd| cut -d':' -f2)"""
-* Check if seccomp active ("2" means active)
-  ""kubectl exec <pod> cat /proc/1/status | grep Seccomp""
-* Check if privilege escalation is possible
-  ""kubectl exec <pod> cat /proc/1/status | grep NoNewPrivs""
-* Simple test for read-only filesystem (expected result - ""touch: cannot touch 'a': Read-only file system"") 
-  ""kubectl exec <pod>  touch a""
-* Query user and group of container:
-  ""kubectl exec <pod> id""
-end note
-
 legend
+  Hints for testing if settings are effective:
+  * Query capabilities of container:
+    ""capsh --decode="$(kubectl exec <pod> cat /proc/1/status | grep CapBnd| cut -d':' -f2)"""
+  * Check if seccomp active ("2" means active)
+    ""kubectl exec <pod> cat /proc/1/status | grep Seccomp""
+  * Check if privilege escalation is possible
+    ""kubectl exec <pod> cat /proc/1/status | grep NoNewPrivs""
+  * Simple test for read-only filesystem (expected result - ""touch: cannot touch 'a': Read-only file system"") 
+    ""kubectl exec <pod>  touch a""
+  * Query user and group of container:
+    ""kubectl exec <pod> id""
+    
 <color:#23a3dd><$cloudogu></color> [[https://cloudogu.com cloudogu.com]]
 end legend
- 
+
 skinparam arrow {
   Color #23a3dd
 }
