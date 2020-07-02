@@ -1,0 +1,96 @@
+@startuml
+
+!include <tupadr3/common>
+
+!define ICONURL https://raw.githubusercontent.com/Roemer/plantuml-office/master/office2014
+
+!includeurl https://raw.githubusercontent.com/michiel/plantuml-kubernetes-sprites/master/resource/k8s-sprites-unlabeled-25pct.iuml
+!includeurl ICONURL/Devices/load_balancer.puml
+
+!define CLOUDOGUURL https://raw.githubusercontent.com/cloudogu/plantuml-cloudogu-sprites/master
+!includeurl CLOUDOGUURL/dogus/cloudogu.puml  
+!includeurl CLOUDOGUURL/tools/k8s.puml
+
+!define CLOUDOGU_BLUE #23a3dd
+
+title <color:blue><$k8s></color> **Services, Nodes and Pods explained (including IP addresses and ports)** <color:blue><$k8s></color>\n
+
+rectangle "<$load_balancer>\nLoad Balancer" as LB
+note right of LB
+    service external IP and port, 
+    e.g. 35.x.x.x:80
+end note
+
+cloud "K8s Cluster" as k8s { 
+
+together {
+    together {
+    
+        interface " " as nodeport_1
+        note bottom of nodeport_1
+            node external or 
+            internal IP and 
+            service node port,
+            e.g 35.x.x.x:30830 
+            and 10.156.x.x:30830
+        end note
+        
+        rectangle "<$node>\nNode" as node_1 <<node>> {
+            rectangle "<$svc>\nService" as service_1
+            rectangle "<$pod>\nPod" as pod_1
+            
+            note bottom of service_1
+              service IP and port,
+              e.g. 10.44.x.x:80
+            end note
+            
+            note bottom of pod_1
+              pod IP and target/container port ,
+              e.g. 10.40.x.x:8080
+            end note
+        }
+     }
+}
+
+LB -[hidden]-> k8s
+
+service_1 -[hidden]-> pod_1
+
+LB -> nodeport_1
+
+service_1 -> nodeport_1
+service_1 --> pod_1
+
+legend
+<color:#23a3dd><$cloudogu></color> [[https://cloudogu.com cloudogu.com]]
+end legend
+
+skinparam arrow {
+    Color CLOUDOGU_BLUE
+    FontColor WHITE
+}
+
+skinparam rectangle {
+    BackgroundColor CLOUDOGU_BLUE
+    BorderColor #16688d
+    FontColor WHITE
+    backgroundColor<<node>> WHITE
+    FontColor<<node>> CLOUDOGU_BLUE
+}
+
+skinparam interface {
+    BackgroundColor WHITE
+    BorderColor #16688d
+}
+
+skinparam note {
+    BackgroundColor WHITE
+    BorderColor #16688d
+}
+
+skinparam legend {
+    BackgroundColor WHITE
+    BorderColor #16688d
+}
+
+@enduml

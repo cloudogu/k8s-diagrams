@@ -1,0 +1,44 @@
+@startuml
+!includeurl https://raw.githubusercontent.com/michiel/plantuml-kubernetes-sprites/master/resource/k8s-sprites-unlabeled-25pct.iuml
+
+!define CLOUDOGU_BLUE #23a3dd
+
+!define CLOUDOGUURL https://raw.githubusercontent.com/cloudogu/plantuml-cloudogu-sprites/master
+!includeurl CLOUDOGUURL/dogus/cloudogu.puml  
+!includeurl CLOUDOGUURL/tools/k8s.puml
+
+!define CLOUDOGU_BLUE #23a3dd
+
+title <color:blue><$k8s></color> **PodSecurityPolicy Activation via RBAC** <color:blue><$k8s></color>\n
+
+rectangle "<$psp>\nPodSecurityPolicy" as psp
+rectangle "<$role>\n(Cluster-)Role" as role
+rectangle "<$rb>\n(Cluster-)RoleBinding" as rb
+rectangle "<$sa>\nServiceAccount" as sa
+rectangle "<$pod>\nPod" as pod
+  
+psp <- role: authorize use
+role <- rb: bind
+rb -> sa: bind
+sa <- pod: assign
+
+legend
+<color:#23a3dd><$cloudogu></color> [[https://cloudogu.com cloudogu.com]]
+end legend
+
+skinparam arrow {
+    Color CLOUDOGU_BLUE
+}
+
+skinparam rectangle {
+    BackgroundColor CLOUDOGU_BLUE
+    BorderColor #16688d
+    FontColor WHITE
+}
+
+skinparam legend {
+    BackgroundColor WHITE
+    BorderColor #16688d
+}
+
+@enduml

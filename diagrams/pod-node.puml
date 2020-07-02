@@ -1,0 +1,52 @@
+@startuml
+
+!include <tupadr3/common>
+
+!includeurl https://raw.githubusercontent.com/michiel/plantuml-kubernetes-sprites/master/resource/k8s-sprites-unlabeled-25pct.iuml
+
+!define CLOUDOGUURL https://raw.githubusercontent.com/cloudogu/plantuml-cloudogu-sprites/master
+!includeurl CLOUDOGUURL/dogus/cloudogu.puml  
+!includeurl CLOUDOGUURL/tools/k8s.puml
+
+!define CLOUDOGU_BLUE #23a3dd
+
+title <color:blue><$k8s></color> **Pod ➜ Node** <color:blue><$k8s></color>\n
+
+cloud "K8s Cluster" as k8s { 
+
+together {
+    rectangle "<$node>\nNode n" as node_n <<node>> {
+        rectangle "<$pod>\nPod n" as pod_n
+    }
+    
+    rectangle "<$node>\nNode 1" as node_1 <<node>> {
+        rectangle "<$pod>\nPod 1" as pod_1
+        rectangle "<$pod>\nPod 2" as pod_2
+    }
+     }
+}
+
+legend
+<color:#23a3dd><$cloudogu></color> [[https://cloudogu.com cloudogu.com]]
+end legend
+
+skinparam arrow {
+    Color CLOUDOGU_BLUE
+    FontColor WHITE
+}
+
+skinparam rectangle {
+    BackgroundColor CLOUDOGU_BLUE
+    BorderColor #16688d
+    FontColor WHITE
+    
+    backgroundColor<<node>> WHITE
+    FontColor<<node>> CLOUDOGU_BLUE
+}
+
+skinparam legend {
+    BackgroundColor WHITE
+    BorderColor #16688d
+}
+
+@enduml
