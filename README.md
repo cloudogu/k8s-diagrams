@@ -2,7 +2,8 @@ k8s-diagrams
 ===
 
 A collection of diagrams explaining kubernetes, extracted from our [trainings](https://cloudogu.com/en/trainings/),
-articles and talks.
+[articles](https://cloudogu.com/en/blog/tag/k8s-security/) and talks 
+([k8s sec](https://github.com/cloudogu/k8s-appops-security-talks), [k8s intro](https://github.com/cloudogu/k8s-intro-talk)).
 
 Realized using [PlantUML](https://plantuml.com/). The diagrams don't use UML notation, though. They are rather box and 
 line diagrams.
