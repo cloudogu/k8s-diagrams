@@ -19,6 +19,7 @@ line diagrams.
 - [Pod ➜ Node](#pod-%E2%9E%9C-node)
 - [Services, Nodes and Pods explained](#services-nodes-and-pods-explained)
 - [Services, Nodes and Pods explained (including IP addresses)](#services-nodes-and-pods-explained-including-ip-addresses)
+- [Rolling Update](#rolling-update)
 - [Authentication and Authorization](#authentication-and-authorization)
 - [PodSecurityPolicy Activation via RBAC](#podsecuritypolicy-activation-via-rbac)
 - [Troubleshooting Kubernetes PodSecurityPolicies](#troubleshooting-kubernetes-podsecuritypolicies)
@@ -61,9 +62,14 @@ Including different address IP address ranges and ports:
 ![](https://www.plantuml.com/plantuml/proxy?src=https://raw.githubusercontent.com/cloudogu/k8s-diagrams/master/diagrams/services-with-ip.puml&fmt=svg)
 
 
+# Rolling Update
+
+![](https://www.plantuml.com/plantuml/proxy?src=https://raw.githubusercontent.com/cloudogu/k8s-diagrams/master/diagrams/rolling-update.puml&fmt=svg)
+
+
 # Authentication and Authorization
 
-Flow from user API server request to response: check authn via identitiy provider, then authz via RBAC.    
+Flow from user API server request to response: check authn via identity provider, then authz via RBAC.    
 
 ![](https://www.plantuml.com/plantuml/proxy?src=https://raw.githubusercontent.com/cloudogu/k8s-diagrams/master/diagrams/k8s-auth.puml&fmt=svg)
 
