@@ -19,8 +19,10 @@ Note that the diagrams don't use UML notation. They are rather box and line diag
 - [Pod ➜ Node](#pod-%E2%9E%9C-node)
 - [Services, Nodes and Pods explained](#services-nodes-and-pods-explained)
 - [Services, Nodes and Pods explained (including IP addresses)](#services-nodes-and-pods-explained-including-ip-addresses)
-- [Rolling Update](#rolling-update)
+- [Ingresses explained](#ingresses-explained)
+- [Rolling Updates explained](#rolling-updates-explained)
 - [Authentication and Authorization](#authentication-and-authorization)
+- [Role Based Access Control (RBAC) Resources](#role-based-access-control-rbac-resources)
 - [PodSecurityPolicy Activation via RBAC](#podsecuritypolicy-activation-via-rbac)
 - [Troubleshooting Kubernetes PodSecurityPolicies](#troubleshooting-kubernetes-podsecuritypolicies)
 
@@ -62,7 +64,14 @@ Including different address IP address ranges and ports:
 ![](https://www.plantuml.com/plantuml/proxy?src=https://raw.githubusercontent.com/cloudogu/k8s-diagrams/master/diagrams/services-with-ip.puml&fmt=svg)
 
 
-# Rolling Update
+# Ingresses explained
+
+Progress of a requests from the ingress controller's service to the actual pod, illustrating the role of the `ingress` resource.
+
+![](https://www.plantuml.com/plantuml/proxy?src=https://raw.githubusercontent.com/cloudogu/k8s-diagrams/master/diagrams/ingress.puml&fmt=svg)
+
+
+# Rolling Updates explained
 
 ![](https://www.plantuml.com/plantuml/proxy?src=https://raw.githubusercontent.com/cloudogu/k8s-diagrams/master/diagrams/rolling-update.puml&fmt=svg)
 
@@ -72,6 +81,19 @@ Including different address IP address ranges and ports:
 Flow from user API server request to response: check authn via identity provider, then authz via RBAC.    
 
 ![](https://www.plantuml.com/plantuml/proxy?src=https://raw.githubusercontent.com/cloudogu/k8s-diagrams/master/diagrams/k8s-auth.puml&fmt=svg)
+
+# Role Based Access Control (RBAC) Resources
+
+A simplified display of resources involved in RBAC and their correlations.
+
+Note that 
+* `Permission` is not a k8s resource, but a list of rules inside the (Cluster-)roles that make up a kind of permission.  
+  It consits of resources and verbs granted on it. For example: 
+  * resources: "secrets"
+  * verbs: "get"
+* `Subject` can be a serviceAccount, user or group 
+
+![](https://www.plantuml.com/plantuml/proxy?src=https://raw.githubusercontent.com/cloudogu/k8s-diagrams/master/diagrams/rbac.puml&fmt=svg)
 
 
 # PodSecurityPolicy Activation via RBAC

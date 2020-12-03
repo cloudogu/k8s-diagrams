@@ -13,7 +13,7 @@
 
 !define CLOUDOGU_BLUE #23a3dd
 
-title <color:blue><$k8s></color> **Rolling updates** <color:blue><$k8s></color>\n
+title <color:blue><$k8s></color> **Rolling updates explained** <color:blue><$k8s></color>\n
 
 
 rectangle "Version 1.0 active" as 1 <<rollingUpdateGroup>> {

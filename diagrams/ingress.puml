@@ -1,0 +1,84 @@
+@startuml
+
+!includeurl https://raw.githubusercontent.com/michiel/plantuml-kubernetes-sprites/master/resource/k8s-sprites-unlabeled-25pct.iuml
+
+!define CLOUDOGUURL https://raw.githubusercontent.com/cloudogu/plantuml-cloudogu-sprites/master
+!includeurl CLOUDOGUURL/dogus/cloudogu.puml  
+!includeurl CLOUDOGUURL/tools/k8s.puml
+
+!define CLOUDOGU_BLUE #23a3dd
+
+title <color:blue><$k8s></color> **Ingresses explained** <color:blue><$k8s></color>\n
+
+together {
+    actor user
+    
+    cloud "K8s Cluster" as k8s { 
+    
+    together {
+        rectangle "<$svc>\nIngress Controller\nService\n(type LoadBalancer)" as service_lb
+        rectangle "<$svc>\nApplication\nService\n(type ClusterIP)" as service_ci
+    }
+    
+    together {
+        rectangle "<$pod>\nIngress Controller\nPods" as pod_ing
+        rectangle "<$ing>\nIngress" as ingress
+        note right of ingress
+            host: an.example.com 
+            →  
+            service: Application Service
+        end note
+        rectangle "<$pod>\nApplication Pods" as pod_app
+    }
+}
+
+
+service_lb -[hidden]-> pod_ing
+
+user -> service_lb : 1: request to external IP address\nhost: an.example.com
+service_lb --> pod_ing : 2: forward to 
+pod_ing --> ingress : 3: evaluate ingress
+pod_ing -[hidden]> pod_app 
+pod_ing -> service_ci : 4: request to cluster IP address 
+service_ci -> pod_app : 5: forward to 
+
+
+legend
+<color:#23a3dd><$cloudogu></color> [[https://cloudogu.com cloudogu.com]]
+end legend
+
+
+skinparam arrow {
+    Color CLOUDOGU_BLUE
+}
+
+skinparam actor {
+    BackgroundColor CLOUDOGU_BLUE
+    BorderColor #16688d
+    FontColor WHITE
+}
+
+skinparam rectangle {
+    BackgroundColor CLOUDOGU_BLUE
+    BorderColor #16688d
+    FontColor WHITE
+    backgroundColor<<node>> WHITE
+    FontColor<<node>> CLOUDOGU_BLUE
+}
+
+skinparam interface {
+    BackgroundColor WHITE
+    BorderColor #16688d
+}
+
+skinparam note {
+    BackgroundColor WHITE
+    BorderColor #16688d
+}
+
+skinparam legend {
+    BackgroundColor WHITE
+    BorderColor #16688d
+}
+
+@enduml
