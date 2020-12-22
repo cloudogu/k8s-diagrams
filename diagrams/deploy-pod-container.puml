@@ -11,6 +11,9 @@
 
 !define CLOUDOGU_BLUE #23a3dd
 
+' Remove this line for transparent background
+skinparam backgroundColor WHITE
+
 title <color:blue><$k8s></color> **Deployment ➜ Pod ➜ Container** <color:blue><$k8s></color>\n
 
 rectangle "<$deploy>\nDeployment" as deploy

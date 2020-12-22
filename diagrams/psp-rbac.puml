@@ -9,6 +9,9 @@
 
 !define CLOUDOGU_BLUE #23a3dd
 
+' Remove this line for transparent background
+skinparam backgroundColor WHITE
+
 title <color:blue><$k8s></color> **PodSecurityPolicy Activation via RBAC** <color:blue><$k8s></color>\n
 
 rectangle "<$psp>\nPodSecurityPolicy" as psp
