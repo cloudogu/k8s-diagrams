@@ -10,9 +10,12 @@
 
 !define CLOUDOGUURL https://raw.githubusercontent.com/cloudogu/plantuml-cloudogu-sprites/master
 !includeurl CLOUDOGUURL/tools/k8s.puml
+!includeurl CLOUDOGUURL/dogus/cloudogu.puml  
 
 !define CLOUDOGU_BLUE #23a3dd
 !define COLOR_ABOVE_TRANSPARENT_BACKGROUND BLACK
+
+title <color:blue><$k8s></color> **GitOps (simple)** <color:blue><$k8s></color>\n
 
 skinparam actorStyle awesome
 
@@ -28,6 +31,10 @@ together {
 user -> gitRepo : push
 gitRepo <- operator : pull
 operator -> apiServer : deploy
+
+legend
+<color:#23a3dd><$cloudogu></color> [[https://cloudogu.com cloudogu.com]]
+end legend
 
 skinparam arrow {
     Color COLOR_ABOVE_TRANSPARENT_BACKGROUND
@@ -54,6 +61,11 @@ skinparam interface {
 }
 
 skinparam note {
+    BackgroundColor WHITE
+    BorderColor #16688d
+}
+
+skinparam legend {
     BackgroundColor WHITE
     BorderColor #16688d
 }

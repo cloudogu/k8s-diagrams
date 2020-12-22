@@ -25,6 +25,7 @@ Note that the diagrams don't use UML notation. They are rather box and line diag
 - [Role Based Access Control (RBAC) Resources](#role-based-access-control-rbac-resources)
 - [PodSecurityPolicy Activation via RBAC](#podsecuritypolicy-activation-via-rbac)
 - [Troubleshooting Kubernetes PodSecurityPolicies](#troubleshooting-kubernetes-podsecuritypolicies)
+- [GitOps](#gitops)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -108,3 +109,16 @@ Connection from Pod to PSP via RBAC (Role, RoleBinding, ServiceAccount).
 A diagram to help debugging Kubernetes PodSecurityPolicies.
 
 ![](https://www.plantuml.com/plantuml/proxy?src=https://raw.githubusercontent.com/cloudogu/k8s-diagrams/master/diagrams/troubleshooting-k8s-psps.puml&fmt=svg)
+
+# GitOps
+
+Diagrams describing the general concepts of gitOps and distinguishing it from "ciOps".  
+See also our [GitOps glossary](https://cloudogu.com/en/glossary/gitops/) and [offerings for consulting](https://cloudogu.com/en/consulting/)
+
+![](https://www.plantuml.com/plantuml/proxy?src=https://raw.githubusercontent.com/cloudogu/k8s-diagrams/master/diagrams/ciops.puml&fmt=svg)
+
+![](https://www.plantuml.com/plantuml/proxy?src=https://raw.githubusercontent.com/cloudogu/k8s-diagrams/master/diagrams/gitops-simple.puml&fmt=svg)
+
+![](https://www.plantuml.com/plantuml/proxy?src=https://raw.githubusercontent.com/cloudogu/k8s-diagrams/master/diagrams/gitops-with-image.puml&fmt=svg)
+
+![](https://www.plantuml.com/plantuml/proxy?src=https://raw.githubusercontent.com/cloudogu/k8s-diagrams/master/diagrams/gitops-with-app-repo.puml&fmt=svg)
