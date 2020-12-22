@@ -26,6 +26,8 @@ Note that the diagrams don't use UML notation. They are rather box and line diag
 - [PodSecurityPolicy Activation via RBAC](#podsecuritypolicy-activation-via-rbac)
 - [Troubleshooting Kubernetes PodSecurityPolicies](#troubleshooting-kubernetes-podsecuritypolicies)
 - [GitOps](#gitops)
+  - [High-level overview](#high-level-overview)
+  - [Details](#details)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -113,12 +115,26 @@ A diagram to help debugging Kubernetes PodSecurityPolicies.
 # GitOps
 
 Diagrams describing the general concepts of gitOps and distinguishing it from "ciOps".  
-See also our [GitOps glossary](https://cloudogu.com/en/glossary/gitops/) and [offerings for consulting](https://cloudogu.com/en/consulting/)
+
+See also our
+* [GitOps playground](https://github.com/cloudogu/k8s-gitops-playground/) (to experience argocd and flux hands-on in a local k8s cluster), 
+* [GitOps glossary](https://cloudogu.com/en/glossary/gitops/) and
+* [offerings for consulting](https://cloudogu.com/en/consulting/).
+
+## High-level overview 
 
 ![](https://www.plantuml.com/plantuml/proxy?src=https://raw.githubusercontent.com/cloudogu/k8s-diagrams/master/diagrams/ciops.puml&fmt=svg)
 
 ![](https://www.plantuml.com/plantuml/proxy?src=https://raw.githubusercontent.com/cloudogu/k8s-diagrams/master/diagrams/gitops-simple.puml&fmt=svg)
 
+## Details 
+There are different options when implementing GitOps. Some of them are depicted bellow.
+
 ![](https://www.plantuml.com/plantuml/proxy?src=https://raw.githubusercontent.com/cloudogu/k8s-diagrams/master/diagrams/gitops-with-image.puml&fmt=svg)
+CI Server writes image version to GitOps Repo.
+
+![](https://www.plantuml.com/plantuml/proxy?src=https://raw.githubusercontent.com/cloudogu/k8s-diagrams/master/diagrams/gitops-with-auto-update.puml&fmt=svg)
+CI Server read-only on GitOps Repo; GitOps Operator writes image version to GitOps Repo.
 
 ![](https://www.plantuml.com/plantuml/proxy?src=https://raw.githubusercontent.com/cloudogu/k8s-diagrams/master/diagrams/gitops-with-app-repo.puml&fmt=svg)
+Infra as Code stays in app repo, CI Server writes to GitOps repo.

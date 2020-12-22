@@ -17,9 +17,9 @@
 !define COLOR_ABOVE_TRANSPARENT_BACKGROUND BLACK
 
 ' Remove this line for transparent background
-skinparam backgroundColor WHITE
+skinparam backgroundColor #FFFFFE
 
-title <color:blue><$k8s></color> **GitOps (with image)** <color:blue><$k8s></color>\n
+title <color:blue><$k8s></color> **GitOps (with image auto update)** <color:blue><$k8s></color>\n
 
 skinparam actorStyle awesome
 
@@ -39,11 +39,12 @@ rectangle "<$k8s>\nK8s Cluster" as k8s {
 }
 
 user -> gitRepo : push
-gitRepo <-- ciServer : pull & push (image version)
+gitRepo <-- ciServer : pull
 ciServer -> registry : push
-gitRepo <- operator : pull
+gitRepo <- operator : pull &\npush (image version)
+registry <- operator : pull
 operator -> apiServer : deploy
-kubelet -> registry : pull
+kubelet --> registry : pull
 apiServer <- kubelet : watch
 
 legend
