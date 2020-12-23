@@ -4,7 +4,7 @@
 !includeurl CLOUDOGUURL/tools/k8s.puml
 
 ' Remove this line for transparent background
-skinparam backgroundColor WHITE
+skinparam backgroundColor #FFFFF0
 
 title <color:blue><$k8s></color> Troubleshooting Kubernetes PodSecurityPolicies <color:blue><$k8s></color>\n
 

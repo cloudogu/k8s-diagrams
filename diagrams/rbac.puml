@@ -8,7 +8,7 @@
 !define CLOUDOGU_BLUE #23a3dd
 
 ' Remove this line for transparent background
-skinparam backgroundColor WHITE
+skinparam backgroundColor #FFFFF0
 
 title <color:blue><$k8s></color> **Role Based Access Control (RBAC) Resources** <color:blue><$k8s></color>\n
 
