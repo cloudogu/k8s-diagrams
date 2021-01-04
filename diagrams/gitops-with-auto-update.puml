@@ -42,7 +42,7 @@ user -> gitRepo : push
 gitRepo <-- ciServer : pull
 ciServer -> registry : push
 gitRepo <- operator : pull &\npush (image version)
-registry <- operator : pull
+registry <- operator : fetch metadata
 operator -> apiServer : deploy
 kubelet --> registry : pull
 apiServer <- kubelet : watch
