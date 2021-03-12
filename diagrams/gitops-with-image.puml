@@ -17,7 +17,7 @@
 !define COLOR_ABOVE_TRANSPARENT_BACKGROUND BLACK
 
 ' Remove this line for transparent background
-skinparam backgroundColor #FFFFF0
+skinparam backgroundColor WHITE
 
 title <color:blue><$k8s></color> **GitOps (with image)** <color:blue><$k8s></color>\n
 
