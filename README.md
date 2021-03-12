@@ -131,10 +131,17 @@ See also our
 There are different options when implementing GitOps. Some of them are depicted bellow.
 
 ![](https://www.plantuml.com/plantuml/proxy?src=https://raw.githubusercontent.com/cloudogu/k8s-diagrams/master/diagrams/gitops-with-image.puml&fmt=svg)
+
 CI Server writes image version to GitOps Repo.
 
+---
+
 ![](https://www.plantuml.com/plantuml/proxy?src=https://raw.githubusercontent.com/cloudogu/k8s-diagrams/master/diagrams/gitops-with-auto-update.puml&fmt=svg)
+
 CI Server read-only on GitOps Repo; GitOps Operator writes image version to GitOps Repo.
 
+---
+
 ![](https://www.plantuml.com/plantuml/proxy?src=https://raw.githubusercontent.com/cloudogu/k8s-diagrams/master/diagrams/gitops-with-app-repo.puml&fmt=svg)
+
 Infra as Code stays in app repo, CI Server writes to GitOps repo.
