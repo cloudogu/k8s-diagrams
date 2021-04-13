@@ -1,8 +1,8 @@
 k8s-diagrams
 ===
 
-A collection of diagrams explaining kubernetes, extracted from our [trainings](https://cloudogu.com/en/trainings/),
-[articles](https://cloudogu.com/en/blog/tag/k8s-security/) and talks 
+A collection of diagrams explaining kubernetes, extracted from our [trainings](https://cloudogu.com/en/trainings/?mtm_campaign=k8sdiagrams&mtm_kwd=trainings&mtm_source=github&mtm_medium=link),
+[articles](https://cloudogu.com/en/blog/tag/k8s-security/?mtm_campaign=k8sdiagrams&mtm_kwd=blog&mtm_source=github&mtm_medium=link) and talks 
 ([k8s sec](https://github.com/cloudogu/k8s-appops-security-talks), [k8s intro](https://github.com/cloudogu/k8s-intro-talk)).
 
 The diagrams are realized using [PlantUML](https://plantuml.com/), so they're basically text and can be adjusted easily.  
