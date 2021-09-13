@@ -33,7 +33,7 @@ together {
 
 user -> gitRepo : push
 gitRepo <- operator : pull
-operator -> apiServer : deploy
+operator -> apiServer : deploy\ncontinuously\n(declarative)
 
 legend
 <color:#23a3dd><$cloudogu></color> [[https://cloudogu.com cloudogu.com]]

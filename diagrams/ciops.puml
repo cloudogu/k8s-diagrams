@@ -29,7 +29,7 @@ together {
 
 user -> gitRepo : push
 gitRepo <- ciServer : pull
-ciServer -> k8s : deploy
+ciServer -> k8s : deploy\nonce\n(imperative)
 
 
 legend
