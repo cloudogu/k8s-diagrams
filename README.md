@@ -1,9 +1,16 @@
 k8s-diagrams
 ===
 
-A collection of diagrams explaining kubernetes, extracted from our [trainings](https://cloudogu.com/en/trainings/?mtm_campaign=k8sdiagrams&mtm_kwd=trainings&mtm_source=github&mtm_medium=link),
-[articles](https://cloudogu.com/en/blog/tag/k8s-security/?mtm_campaign=k8sdiagrams&mtm_kwd=blog&mtm_source=github&mtm_medium=link) and talks 
-([k8s sec](https://github.com/cloudogu/k8s-appops-security-talks), [k8s intro](https://github.com/cloudogu/k8s-intro-talk)).
+A collection of diagrams explaining kubernetes, extracted from our 
+- [k8s trainings](https://cloudogu.com/en/trainings/?mtm_campaign=k8sdiagrams&mtm_kwd=trainings&mtm_source=github&mtm_medium=link)
+- [k8s AppOps Security eBook](https://my.cloudogu.com/kubernetes-appops-security-ebook) (German)
+- [blog articles](https://cloudogu.com/en/blog/tag/k8s-security/?mtm_campaign=k8sdiagrams&mtm_kwd=blog&mtm_source=github&mtm_medium=link) 
+- and talks ([k8s sec](https://github.com/cloudogu/k8s-appops-security-talks), [k8s intro](https://github.com/cloudogu/k8s-intro-talk))
+
+For questions or suggestions you are welcome to join us at our myCloudogu [community forum](https://community.cloudogu.com/c/kubernetes/54).
+
+[![Discuss it on myCloudogu](https://static.cloudogu.com/static/images/discuss-it.png)](https://community.cloudogu.com/c/kubernetes/54)
+===
 
 The diagrams are realized using [PlantUML](https://plantuml.com/), so they're basically text and can be adjusted easily.  
 Note that the diagrams don't use UML notation. They are rather box and line diagrams.
