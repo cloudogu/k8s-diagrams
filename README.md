@@ -152,3 +152,7 @@ CI Server read-only on GitOps Repo; GitOps Operator writes image version to GitO
 ![](https://www.plantuml.com/plantuml/proxy?src=https://raw.githubusercontent.com/cloudogu/k8s-diagrams/master/diagrams/gitops-with-app-repo.puml&fmt=svg)
 
 Infra as Code stays in app repo, CI Server writes to GitOps repo.
+
+## GitOps Patterns
+
+See [cloudogu/gitops-patterns](https://github.com/cloudogu/gitops-patterns) for more details on GitOps and diagrams.
